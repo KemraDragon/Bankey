@@ -31,7 +31,7 @@ class LoginView: UIView {
 extension LoginView {
     func style() {
         translatesAutoresizingMaskIntoConstraints = false
-        backgroundColor = .red
+        backgroundColor = .secondarySystemBackground
         
         stackview.translatesAutoresizingMaskIntoConstraints = false
         stackview.axis = .vertical
@@ -46,23 +46,29 @@ extension LoginView {
         passwordTextfield.isSecureTextEntry = true
         passwordTextfield.delegate = self
         
-        dividerView.translatesAutoresizingMaskIntoConstraints = true
+        dividerView.translatesAutoresizingMaskIntoConstraints = false
         dividerView.backgroundColor = .secondarySystemFill
+        
+        layer.cornerRadius = 5
+        clipsToBounds = true
     }
     
     func layout() {
         
         stackview.addArrangedSubview(usernameTextfield)
+        stackview.addArrangedSubview(dividerView)
         stackview.addArrangedSubview(passwordTextfield)
         
         addSubview(stackview)
         
         NSLayoutConstraint.activate([
-        stackview.topAnchor.constraint(equalToSystemSpacingBelow: topAnchor, multiplier: 1),
-        stackview.leadingAnchor.constraint(equalToSystemSpacingAfter: leadingAnchor, multiplier: 1),
-        trailingAnchor.constraint(equalToSystemSpacingAfter: stackview.trailingAnchor, multiplier: 1),
-        bottomAnchor.constraint(equalToSystemSpacingBelow: stackview.bottomAnchor, multiplier: 1)
+stackview.topAnchor.constraint(equalToSystemSpacingBelow: topAnchor, multiplier: 1),
+stackview.leadingAnchor.constraint(equalToSystemSpacingAfter: leadingAnchor, multiplier: 1),
+trailingAnchor.constraint(equalToSystemSpacingAfter: stackview.trailingAnchor, multiplier: 1),
+bottomAnchor.constraint(equalToSystemSpacingBelow: stackview.bottomAnchor, multiplier: 1)
         ])
+        
+        dividerView.heightAnchor.constraint(equalToConstant: 1).isActive = true
     }
 }
 
@@ -75,11 +81,7 @@ extension LoginView: UITextFieldDelegate {
     }
     
     func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
-        if textField.text != ""{
-            return true
-        } else {
-            return false
-        }
+        return true
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
