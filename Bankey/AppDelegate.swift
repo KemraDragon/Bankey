@@ -16,8 +16,12 @@ func application(_ application: UIApplication, didFinishLaunchingWithOptions lau
 
             window = UIWindow(frame: UIScreen.main.bounds)
             window?.backgroundColor = .systemBackground
-            window?.rootViewController = LoginViewController()
+        //  window?.rootViewController = LoginViewController()
             window?.makeKeyAndVisible()
+            window?.rootViewController = OnboardingContainerViewController()
+
+
+
 
             return true
         }

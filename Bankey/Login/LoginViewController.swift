@@ -14,7 +14,8 @@ class LoginViewController: UIViewController {
     let errorMessageLabel = UILabel()
     let titleLabel = UILabel()
     let titleLabel2 = UILabel()
-    
+    let activityIndicator = UIActivityIndicatorView()
+
     
     var username: String? {
         return loginView.usernameTextfield.text
@@ -36,7 +37,6 @@ extension LoginViewController{
     
     private func style() {
         loginView.translatesAutoresizingMaskIntoConstraints = false
-        
         
         signInButton.translatesAutoresizingMaskIntoConstraints = false
         signInButton.setTitle("Iniciar Sesión", for: .normal)
@@ -66,6 +66,9 @@ extension LoginViewController{
         titleLabel2.textAlignment = .center
         titleLabel2.numberOfLines = 0
 
+        activityIndicator.isHidden = true
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        activityIndicator.color = .white
     }
 
     private func layout() {
@@ -74,6 +77,7 @@ extension LoginViewController{
         view.addSubview(errorMessageLabel)
         view.addSubview(titleLabel)
         view.addSubview(titleLabel2)
+        view.addSubview(activityIndicator)
 
         //titulo
         NSLayoutConstraint.activate([
@@ -105,6 +109,10 @@ extension LoginViewController{
             errorMessageLabel.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -16),
             errorMessageLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16)
         ])
+        NSLayoutConstraint.activate([
+            activityIndicator.centerYAnchor.constraint(equalTo: signInButton.centerYAnchor),
+            activityIndicator.centerXAnchor.constraint(equalTo: signInButton.centerXAnchor),
+        ])
     }
 }
 
@@ -123,6 +131,12 @@ extension LoginViewController {
         if username.isEmpty || password.isEmpty {
             configureView(withMessage: "Usuario y Clave no pueden estar en blanco")
         }
+        if username == "Kevin" && password == "welcome" {
+            activityIndicator.isHidden = false
+            signInButton.setTitle("", for: .normal)
+
+        }
+
     }
     private func configureView(withMessage message: String) {
         errorMessageLabel.isHidden = false
